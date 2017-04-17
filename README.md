@@ -1,9 +1,11 @@
 # api documentation for  [brfs (v1.4.3)](https://github.com/substack/brfs)  [![npm package](https://img.shields.io/npm/v/npmdoc-brfs.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-brfs) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-brfs.svg)](https://travis-ci.org/npmdoc/node-npmdoc-brfs)
 #### browserify fs.readFileSync() static asset inliner
 
-[![NPM](https://nodei.co/npm/brfs.png?downloads=true)](https://www.npmjs.com/package/brfs)
+[![NPM](https://nodei.co/npm/brfs.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/brfs)
 
-[![apidoc](https://npmdoc.github.io/node-npmdoc-brfs/build/screenCapture.buildNpmdoc.browser._2Fhome_2Ftravis_2Fbuild_2Fnpmdoc_2Fnode-npmdoc-brfs_2Ftmp_2Fbuild_2Fapidoc.html.png)](https://npmdoc.github.io/node-npmdoc-brfs/build/apidoc.html)
+- [https://npmdoc.github.io/node-npmdoc-brfs/build/apidoc.html](https://npmdoc.github.io/node-npmdoc-brfs/build/apidoc.html)
+
+[![apidoc](https://npmdoc.github.io/node-npmdoc-brfs/build/screenCapture.buildCi.browser.%252Ftmp%252Fbuild%252Fapidoc.html.png)](https://npmdoc.github.io/node-npmdoc-brfs/build/apidoc.html)
 
 ![npmPackageListing](https://npmdoc.github.io/node-npmdoc-brfs/build/screenCapture.npmPackageListing.svg)
 
@@ -18,7 +20,6 @@
 {
     "author": {
         "name": "James Halliday",
-        "email": "mail@substack.net",
         "url": "http://substack.net"
     },
     "bin": {
@@ -62,17 +63,14 @@
     "main": "index.js",
     "maintainers": [
         {
-            "name": "mattdesl",
-            "email": "dave.des@gmail.com"
+            "name": "mattdesl"
         },
         {
-            "name": "substack",
-            "email": "substack@gmail.com"
+            "name": "substack"
         }
     ],
     "name": "brfs",
     "optionalDependencies": {},
-    "readme": "ERROR: No README data found!",
     "repository": {
         "type": "git",
         "url": "git://github.com/substack/brfs.git"
@@ -83,16 +81,6 @@
     "version": "1.4.3"
 }
 ```
-
-
-
-# <a name="apidoc.tableOfContents"></a>[table of contents](#apidoc.tableOfContents)
-
-#### [module brfs](#apidoc.module.brfs)
-
-
-
-# <a name="apidoc.module.brfs"></a>[module brfs](#apidoc.module.brfs)
 
 
 
