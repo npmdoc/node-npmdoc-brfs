@@ -61,12 +61,227 @@
 
     <li class="apidocModuleLi"><a href="#apidoc.module.brfs">module brfs</a><ol>
 
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.brfs.brfs">
+            function <span class="apidocSignatureSpan"></span>brfs
+            <span class="apidocSignatureSpan">(file, opts)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.brfs.toString">
+            function <span class="apidocSignatureSpan">brfs.</span>toString
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.brfs.toString">module brfs.toString</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.brfs.toString.toString">
+            function <span class="apidocSignatureSpan">brfs.</span>toString
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
     </ol></li>
 
 </ol></div>
 
 <div class="apidocSectionDiv">
 <h1><a href="#apidoc.module.brfs" id="apidoc.module.brfs">module brfs</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.brfs.brfs" id="apidoc.element.brfs.brfs">
+        function <span class="apidocSignatureSpan"></span>brfs
+        <span class="apidocSignatureSpan">(file, opts)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">brfs = function (file, opts) {
+    if (/\.json$/.test(file)) return through();
+
+    function resolver (p) {
+        return resolve.sync(p, { basedir: path.dirname(file) });
+    }
+    var vars = {
+        __filename: file,
+        __dirname: path.dirname(file),
+        require: { resolve: resolver }
+    };
+    if (!opts) opts = {};
+    if (opts.vars) Object.keys(opts.vars).forEach(function (key) {
+        vars[key] = opts.vars[key];
+    });
+
+    var sm = staticModule(
+        {
+            fs: {
+                readFileSync: readFileSync,
+                readFile: readFile,
+                readdirSync: readdirSync,
+                readdir: readdir
+            }
+        },
+        { vars: vars, varModules: { path: path } }
+    );
+    return sm;
+
+    function readFile (file, enc, cb) {
+        if (typeof enc === &#x27;function&#x27;) {
+            cb = enc;
+            enc = null;
+        }
+        if (enc &#x26;&#x26; typeof enc === &#x27;object&#x27; &#x26;&#x26; enc.encoding) {
+            enc = enc.encoding;
+        }
+        var isBuffer = false;
+        if (enc === null || enc === undefined) {
+            isBuffer = true;
+            enc = &#x27;base64&#x27;;
+        }
+
+        var stream = through(write, end);
+        stream.push(&#x27;process.nextTick(function(){(&#x27; + cb + &#x27;)(null,&#x27;);
+        if (isBuffer) stream.push(&#x27;Buffer(&#x27;);
+
+        var s = fs.createReadStream(file, { encoding: enc });
+        s.on(&#x27;error&#x27;, function (err) { sm.emit(&#x27;error&#x27;, err) });
+        return s.pipe(quote()).pipe(stream);
+
+        function write (buf, enc, next) {
+            this.push(buf);
+            next();
+        }
+        function end (next) {
+            if (isBuffer) this.push(&#x27;,&#x22;base64&#x22;)&#x27;);
+            this.push(&#x27;)})&#x27;);
+            this.push(null);
+            sm.emit(&#x27;file&#x27;, file);
+            next()
+        }
+    }
+
+    function readFileSync (file, enc) {
+        var isBuffer = false;
+        if (enc === null || enc === undefined) {
+            isBuffer = true;
+            enc = &#x27;base64&#x27;;
+        }
+        if (enc &#x26;&#x26; typeof enc === &#x27;object&#x27; &#x26;&#x26; enc.encoding) {
+            enc = enc.encoding;
+        }
+        var stream = fs.createReadStream(file,  { encoding: enc })
+            .on(&#x27;error&#x27;, function (err) { sm.emit(&#x27;error&#x27;, err) })
+            .pipe(quote()).pipe(through(write, end))
+        ;
+        if (isBuffer) {
+            stream.push(&#x27;Buffer(&#x27;);
+        }
+        return stream;
+
+        function write (buf, enc, next) {
+            this.push(buf);
+            next();
+        }
+        function end (next) {
+            if (isBuffer) this.push(&#x27;,&#x22;base64&#x22;)&#x27;);
+            this.push(null);
+            sm.emit(&#x27;file&#x27;, file);
+            next();
+        }
+    }
+
+    function readdir(path, cb) {
+        var stream = through(write, end);
+
+        stream.push(&#x27;process.nextTick(function(){(&#x27; + cb + &#x27;)(null,&#x27;);
+        fs.readdir(path, function (err, src) {
+            if (err) {
+                stream.emit(&#x27;error&#x27;, err);
+                return;
+            }
+            stream.push(JSON.stringify(src));
+            stream.end(&#x27;)})&#x27;);
+        });
+        return stream;
+
+        function write (buf, enc, next) {
+            this.push(buf);
+            next();
+        }
+        function end (next) {
+            this.push(null);
+            next();
+        }
+    }
+
+    function readdirSync (path) {
+        var stream = through(write, end);
+        fs.readdir(path, function (err, src) {
+            if (err) {
+                stream.emit(&#x27;error&#x27;, err);
+                return;
+            }
+            stream.end(JSON.stringify(src));
+        });
+        return stream;
+
+        function write (buf, enc, next) {
+            this.push(buf);
+            next();
+        }
+        function end (next) {
+            this.push(null);
+            next();
+        }
+    }
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.brfs.toString" id="apidoc.element.brfs.toString">
+        function <span class="apidocSignatureSpan">brfs.</span>toString
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">toString = function () {
+    return text;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.brfs.toString" id="apidoc.module.brfs.toString">module brfs.toString</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.brfs.toString.toString" id="apidoc.element.brfs.toString.toString">
+        function <span class="apidocSignatureSpan">brfs.</span>toString
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function toString() { [native code] }</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
 
 </div>
 

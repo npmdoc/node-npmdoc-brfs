@@ -1,4 +1,4 @@
-<div class="apidocDiv">
+<html><head></head><body><div class="apidocDiv">
 <style>
 /*csslint
 */
@@ -47,17 +47,10 @@
 }
 </style>
 <h1>api documentation for
-    <a
-
-        href="https://github.com/substack/brfs"
-
-    >brfs (v1.4.3)</a>
+    <a href="https://github.com/substack/brfs">brfs (v1.4.3)</a>
 </h1>
 <h4>browserify fs.readFileSync() static asset inliner</h4>
-<div class="apidocSectionDiv"><a
-    href="#apidoc.tableOfContents"
-    id="apidoc.tableOfContents"
-><h1>table of contents</h1></a><ol>
+<div class="apidocSectionDiv"><a href="#apidoc.tableOfContents" id="apidoc.tableOfContents"><h1>table of contents</h1></a><ol>
 
     <li class="apidocModuleLi"><a href="#apidoc.module.brfs">module brfs</a><ol>
 
@@ -137,25 +130,25 @@
     return sm;
 
     function readFile (file, enc, cb) {
-        if (typeof enc === &#x27;function&#x27;) {
+        if (typeof enc === 'function') {
             cb = enc;
             enc = null;
         }
-        if (enc &#x26;&#x26; typeof enc === &#x27;object&#x27; &#x26;&#x26; enc.encoding) {
+        if (enc &amp;&amp; typeof enc === 'object' &amp;&amp; enc.encoding) {
             enc = enc.encoding;
         }
         var isBuffer = false;
         if (enc === null || enc === undefined) {
             isBuffer = true;
-            enc = &#x27;base64&#x27;;
+            enc = 'base64';
         }
 
         var stream = through(write, end);
-        stream.push(&#x27;process.nextTick(function(){(&#x27; + cb + &#x27;)(null,&#x27;);
-        if (isBuffer) stream.push(&#x27;Buffer(&#x27;);
+        stream.push('process.nextTick(function(){(' + cb + ')(null,');
+        if (isBuffer) stream.push('Buffer(');
 
         var s = fs.createReadStream(file, { encoding: enc });
-        s.on(&#x27;error&#x27;, function (err) { sm.emit(&#x27;error&#x27;, err) });
+        s.on('error', function (err) { sm.emit('error', err) });
         return s.pipe(quote()).pipe(stream);
 
         function write (buf, enc, next) {
@@ -163,10 +156,10 @@
             next();
         }
         function end (next) {
-            if (isBuffer) this.push(&#x27;,&#x22;base64&#x22;)&#x27;);
-            this.push(&#x27;)})&#x27;);
+            if (isBuffer) this.push(',"base64")');
+            this.push(')})');
             this.push(null);
-            sm.emit(&#x27;file&#x27;, file);
+            sm.emit('file', file);
             next()
         }
     }
@@ -175,17 +168,17 @@
         var isBuffer = false;
         if (enc === null || enc === undefined) {
             isBuffer = true;
-            enc = &#x27;base64&#x27;;
+            enc = 'base64';
         }
-        if (enc &#x26;&#x26; typeof enc === &#x27;object&#x27; &#x26;&#x26; enc.encoding) {
+        if (enc &amp;&amp; typeof enc === 'object' &amp;&amp; enc.encoding) {
             enc = enc.encoding;
         }
         var stream = fs.createReadStream(file,  { encoding: enc })
-            .on(&#x27;error&#x27;, function (err) { sm.emit(&#x27;error&#x27;, err) })
+            .on('error', function (err) { sm.emit('error', err) })
             .pipe(quote()).pipe(through(write, end))
         ;
         if (isBuffer) {
-            stream.push(&#x27;Buffer(&#x27;);
+            stream.push('Buffer(');
         }
         return stream;
 
@@ -194,9 +187,9 @@
             next();
         }
         function end (next) {
-            if (isBuffer) this.push(&#x27;,&#x22;base64&#x22;)&#x27;);
+            if (isBuffer) this.push(',"base64")');
             this.push(null);
-            sm.emit(&#x27;file&#x27;, file);
+            sm.emit('file', file);
             next();
         }
     }
@@ -204,14 +197,14 @@
     function readdir(path, cb) {
         var stream = through(write, end);
 
-        stream.push(&#x27;process.nextTick(function(){(&#x27; + cb + &#x27;)(null,&#x27;);
+        stream.push('process.nextTick(function(){(' + cb + ')(null,');
         fs.readdir(path, function (err, src) {
             if (err) {
-                stream.emit(&#x27;error&#x27;, err);
+                stream.emit('error', err);
                 return;
             }
             stream.push(JSON.stringify(src));
-            stream.end(&#x27;)})&#x27;);
+            stream.end(')})');
         });
         return stream;
 
@@ -229,7 +222,7 @@
         var stream = through(write, end);
         fs.readdir(path, function (err, src) {
             if (err) {
-                stream.emit(&#x27;error&#x27;, err);
+                stream.emit('error', err);
                 return;
             }
             stream.end(JSON.stringify(src));
@@ -291,3 +284,4 @@
     ]
 </div>
 </div>
+</body></html>
