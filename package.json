@@ -1,7 +1,7 @@
 {
     "author": "kai zhu <kaizhu256@gmail.com>",
     "buildNpmdoc": "brfs",
-    "description": "api documentation for [brfs (v1.4.3)](https://github.com/substack/brfs) [![npm package](https://img.shields.io/npm/v/npmdoc-brfs.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-brfs) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-brfs.svg)](https://travis-ci.org/npmdoc/node-npmdoc-brfs)",
+    "description": "#### basic api documentation for  [brfs (v1.4.3)](https://github.com/substack/brfs)  [![npm package](https://img.shields.io/npm/v/npmdoc-brfs.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-brfs) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-brfs.svg)](https://travis-ci.org/npmdoc/node-npmdoc-brfs)",
     "devDependencies": {
         "brfs": "*",
         "electron-lite": "kaizhu256/node-electron-lite#alpha",

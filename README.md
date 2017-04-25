@@ -1,4 +1,7 @@
-# api documentation for  [brfs (v1.4.3)](https://github.com/substack/brfs)  [![npm package](https://img.shields.io/npm/v/npmdoc-brfs.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-brfs) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-brfs.svg)](https://travis-ci.org/npmdoc/node-npmdoc-brfs)
+# npmdoc-brfs
+
+#### basic api documentation for  [brfs (v1.4.3)](https://github.com/substack/brfs)  [![npm package](https://img.shields.io/npm/v/npmdoc-brfs.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-brfs) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-brfs.svg)](https://travis-ci.org/npmdoc/node-npmdoc-brfs)
+
 #### browserify fs.readFileSync() static asset inliner
 
 [![NPM](https://nodei.co/npm/brfs.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/brfs)
